@@ -23,8 +23,8 @@ body {
   background: var(--bg);
   color: var(--text);
   height: 100dvh;
-  display: grid;
-  grid-template-rows: 52px 1fr;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
@@ -33,6 +33,8 @@ header {
   align-items: center;
   gap: 12px;
   padding: 0 20px;
+  height: 52px;
+  flex-shrink: 0;
   border-bottom: 1px solid var(--border);
   background: var(--surface);
   z-index: 10;
@@ -56,9 +58,10 @@ header {
 .status-label { font-size: .72rem; color: var(--muted); }
 
 .workspace {
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: 1fr 400px;
-  height: calc(100dvh - 52px);
   overflow: hidden;
 }
 
