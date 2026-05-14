@@ -47,6 +47,7 @@ CHAT_MODEL    = "llama3.2"
 CHUNK_SIZE    = 400
 CHUNK_OVERLAP = 60
 TOP_K         = 6
+VERSION       = "1.0.0"
 
 # ── App ──────────────────────────────────────────────────────────────────────
 app = FastAPI(title="RAG Video Chatbot")
@@ -300,7 +301,12 @@ llm = ChatOllama(model=CHAT_MODEL, base_url=OLLAMA_BASE, timeout=120)
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "videos_loaded": list(video_store.keys())}
+    return {
+        "status": "ok",
+        "version": VERSION,
+        "videos_loaded": list(video_store.keys()),
+        "chunk_count": collection.count(),
+    }
 
 
 def process_video(label: str, url: str):
