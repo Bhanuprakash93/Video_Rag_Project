@@ -4,6 +4,36 @@ Compare two YouTube videos side-by-side using RAG. Paste URLs, it pulls transcri
 
 Everything runs locally — Ollama for both embeddings and chat, zero API keys.
 
+## Prerequisites
+
+- Python 3.10+
+- Node.js 18+
+- [Ollama](https://ollama.ai) installed and running
+
+Pull the required models before starting:
+
+```bash
+ollama pull llama3.2          # ~2GB
+ollama pull nomic-embed-text  # ~274MB
+```
+
+## Setup
+
+```bash
+# Backend
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+
+# Frontend (separate terminal)
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` — paste two YouTube URLs and start chatting.
+
+
 ## How it works
 
 1. You paste two YouTube URLs
