@@ -141,6 +141,7 @@ input[type="text"]:focus { border-color: var(--accent); }
 
 .cards-area {
   flex: 1;
+  min-height: 0;        /* required: lets flex child shrink so overflow-y works */
   overflow-y: auto;
   padding: 14px;
   display: grid;
