@@ -187,11 +187,20 @@ input[type="text"]:focus { border-color: var(--accent); }
   font-size: .78rem;
   font-weight: 600;
   line-height: 1.35;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.card-creator {
+  font-size: .68rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-stats {

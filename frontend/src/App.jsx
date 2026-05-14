@@ -25,6 +25,7 @@ function VideoCard({ id, data }) {
       <div className="card-body">
         <span className={`card-badge badge-${id}`}>Video {id.toUpperCase()}</span>
         <div className="card-title">{data.title}</div>
+        <div className="card-creator">by {data.creator}</div>
         <div className="card-stats">
           <div className="stat">
             <div className="stat-label">Views</div>
