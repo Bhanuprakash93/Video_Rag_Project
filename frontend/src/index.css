@@ -159,6 +159,7 @@ input[type="text"]:focus {
 }
 
 .video-card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--card-r);
@@ -170,6 +171,31 @@ input[type="text"]:focus {
   transform: translateY(-2px);
   box-shadow: 0 12px 24px rgba(0,0,0,0.06);
 }
+.video-card.winner {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2), 0 12px 24px rgba(0,0,0,0.06);
+}
+.winner-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--amber);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.4);
+  z-index: 5;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 .video-card.empty {
   border-style: dashed;
   display: flex;

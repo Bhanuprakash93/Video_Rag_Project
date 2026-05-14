@@ -9,7 +9,7 @@ function formatNum(n) {
   return n.toLocaleString();
 }
 
-function VideoCard({ id, data }) {
+function VideoCard({ id, data, isWinner }) {
   if (!data) {
     return (
       <div className="video-card empty">
@@ -20,7 +20,8 @@ function VideoCard({ id, data }) {
 
   const barW = Math.min((data.engagement_rate / 10) * 100, 100).toFixed(1);
   return (
-    <div className="video-card">
+    <div className={`video-card ${isWinner ? 'winner' : ''}`}>
+      {isWinner && <div className="winner-badge">🏆 Best Engagement</div>}
       <img className="card-thumb" src={data.thumbnail} alt="thumb" loading="lazy" />
       <div className="card-body">
         <span className={`card-badge badge-${id}`}>Video {id.toUpperCase()}</span>
@@ -233,8 +234,16 @@ function App() {
           </div>
 
           <div className="cards-area">
-            <VideoCard id="a" data={videos.a} />
-            <VideoCard id="b" data={videos.b} />
+            <VideoCard 
+              id="a" 
+              data={videos.a} 
+              isWinner={videos.a && videos.b && videos.a.engagement_rate > videos.b.engagement_rate} 
+            />
+            <VideoCard 
+              id="b" 
+              data={videos.b} 
+              isWinner={videos.a && videos.b && videos.b.engagement_rate > videos.a.engagement_rate}
+            />
           </div>
         </div>
 
