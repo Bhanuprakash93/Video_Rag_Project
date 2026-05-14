@@ -445,6 +445,8 @@ async def chat(req: ChatRequest):
                 conversation_history.append({"role": "user",      "content": query})
                 conversation_history.append({"role": "assistant", "content": assembled})
 
+                # Keep last 10 turns — 3B model has a limited context window
+                # and older turns rarely add value for follow-up comparisons
                 if len(conversation_history) > 20:
                     del conversation_history[:2]
 
