@@ -292,15 +292,15 @@ function App() {
                     {m.sources && m.sources.length > 0 && (
                       <div className="sources">
                         {m.sources.map((s, idx) => (
-                          <div key={idx} className="source-chip" title={s.excerpt}>
-                            Video {s.video_id} · {(s.score * 100).toFixed(0)}%
+                          <div key={idx} className="source-chip" title={`Relevance: ${(s.score * 100).toFixed(0)}%\n\nExcerpt: ${s.excerpt}`}>
+                            Source {s.video_id}
                           </div>
                         ))}
                       </div>
                     )}
                     {m.metrics && (
-                      <div className="msg-metrics">
-                        ⚡ TTFT: {m.metrics.ttft_ms}ms <span style={{margin:'0 4px', color:'var(--border)'}}>|</span> DB: {m.metrics.retrieval_ms}ms <span style={{margin:'0 4px', color:'var(--border)'}}>|</span> {m.metrics.tps} tokens/s
+                      <div className="msg-metrics" title={`TTFT (Think time): ${m.metrics.ttft_ms}ms\nDB (Search time): ${m.metrics.retrieval_ms}ms\nSpeed: ${m.metrics.tps} tokens/s`}>
+                        ⚡ Performance Metrics
                       </div>
                     )}
                   </>
