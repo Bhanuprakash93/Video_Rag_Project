@@ -23,10 +23,8 @@ body {
   background: var(--bg);
   background-image: radial-gradient(circle at top, #ffffff, #f3f4f6 100%);
   color: var(--text);
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  min-height: 100vh;
+  /* NO overflow: hidden here. The page scrolls natively. */
 }
 
 header {
@@ -35,11 +33,12 @@ header {
   gap: 12px;
   padding: 0 24px;
   height: 60px;
-  flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(229, 231, 235, 0.6);
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 .logo {
   font-weight: 800;
@@ -60,12 +59,12 @@ header {
 .status-label { font-size: .75rem; color: var(--muted); font-weight: 500;}
 
 .workspace {
-  flex: 1;
-  min-height: 0;
   display: flex;
   gap: 24px;
   padding: 24px;
-  overflow: hidden;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: flex-start; /* Prevents stretching to match chat height */
 }
 
 .left-panel {
@@ -73,8 +72,6 @@ header {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  overflow-y: auto;
-  padding-right: 8px;
 }
 
 .ingest-bar {
@@ -243,6 +240,9 @@ input[type="text"]:focus {
 
 .chat-panel {
   width: 440px;
+  height: calc(100vh - 108px); /* 100vh - header(60) - padding(24*2) */
+  position: sticky;
+  top: 84px; /* header(60) + padding(24) */
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--card-r);
