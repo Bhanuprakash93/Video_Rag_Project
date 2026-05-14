@@ -4,6 +4,13 @@ Compare two YouTube videos side-by-side using RAG. Paste URLs, it pulls transcri
 
 Everything runs locally — Ollama for both embeddings and chat, zero API keys.
 
+## Core Features (Submission Ready)
+
+- **🏆 Automated Comparison**: Instantly calculates and visually badges the "Engagement Winner" based on real YouTube stats.
+- **🔍 RAG Citations**: Every AI response includes clickable source chips showing exactly which transcript chunks were used and their relevance scores.
+- **⚡ Performance Telemetry**: Real-time tracking of **TTFT** (Time to First Token), **DB Latency**, and **TPS** (Tokens per second) to monitor the local inference pipeline.
+- **☁️ Zero Setup Cloud**: Uses in-memory ChromaDB and local Ollama to ensure the project runs immediately on any machine without API keys.
+
 ## Prerequisites
 
 - Python 3.10+
