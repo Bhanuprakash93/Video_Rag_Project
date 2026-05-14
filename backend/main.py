@@ -4,9 +4,6 @@ RAG Chatbot Backend — FastAPI + LangChain + ChromaDB + Ollama
 Run: uvicorn main:app --reload --port 8000
 """
 
-# SSL fix for corporate proxies — must be FIRST
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
 
 import asyncio
 import json
@@ -392,7 +389,9 @@ async def chat(req: ChatRequest):
     query = req.message
     log.info(f"\n[chat] User: \"{query[:80]}\"")
 
+    t0_retrieval = time.time()
     chunks = retrieve(query)
+    retrieval_ms = (time.time() - t0_retrieval) * 1000
 
     context_lines = [
         f"[Video {c['video_id'].upper()} | score={c['score']}]\n{c['text']}"
@@ -432,16 +431,34 @@ async def chat(req: ChatRequest):
 
         try:
             log.info(f"  [langchain] Streaming from {CHAT_MODEL}...")
+            t_stream_start = time.time()
+            t_first_token = None
+
             async for chunk in chain.astream({
                 "history": history_msgs,
                 "question": augmented_prompt
             }):
+                if t_first_token is None:
+                    t_first_token = time.time()
                 full_response.append(chunk)
                 yield (json.dumps({"type": "token", "data": chunk}) + "\n").encode()
 
             # Only save to history if we got a complete response
             assembled = "".join(full_response)
             if assembled.strip():
+                # --- Metrics calculation ---
+                ttft = t_first_token - t_stream_start if t_first_token else 0
+                total_time = time.time() - t_stream_start
+                tokens_est = len(assembled) / 4  # rough rule of thumb for english
+                tps = tokens_est / total_time if total_time > 0 else 0
+
+                metrics = {
+                    "ttft_ms": round(ttft * 1000),
+                    "tps": round(tps, 1),
+                    "retrieval_ms": round(retrieval_ms)
+                }
+                yield (json.dumps({"type": "metrics", "data": metrics}) + "\n").encode()
+
                 conversation_history.append({"role": "user",      "content": query})
                 conversation_history.append({"role": "assistant", "content": assembled})
 

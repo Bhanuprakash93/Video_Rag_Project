@@ -153,6 +153,7 @@ function App() {
                 if (idx !== prev.length - 1) return m;
                 if (msg.type === 'sources') return { ...m, sources: msg.data };
                 if (msg.type === 'token') return { ...m, content: m.content + msg.data };
+                if (msg.type === 'metrics') return { ...m, metrics: msg.data };
                 if (msg.type === 'done') return { ...m, streaming: false };
                 return m;
               });
@@ -286,6 +287,11 @@ function App() {
                             Video {s.video_id} · {(s.score * 100).toFixed(0)}%
                           </div>
                         ))}
+                      </div>
+                    )}
+                    {m.metrics && (
+                      <div className="msg-metrics">
+                        ⚡ TTFT: {m.metrics.ttft_ms}ms <span style={{margin:'0 4px', color:'var(--border)'}}>|</span> DB: {m.metrics.retrieval_ms}ms <span style={{margin:'0 4px', color:'var(--border)'}}>|</span> {m.metrics.tps} tokens/s
                       </div>
                     )}
                   </>
