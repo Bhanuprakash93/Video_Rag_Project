@@ -4,41 +4,12 @@ Compare two YouTube videos side-by-side using RAG. Paste URLs, it pulls transcri
 
 Everything runs locally — Ollama for both embeddings and chat, zero API keys.
 
-## Core Features (Submission Ready)
+## Key Features
 
-- **🏆 Automated Comparison**: Instantly calculates and visually badges the "Engagement Winner" based on real YouTube stats.
-- **🔍 RAG Citations**: Every AI response includes clickable source chips showing exactly which transcript chunks were used and their relevance scores.
-- **⚡ Performance Telemetry**: Real-time tracking of **TTFT** (Time to First Token), **DB Latency**, and **TPS** (Tokens per second) to monitor the local inference pipeline.
-- **☁️ Zero Setup Cloud**: Uses in-memory ChromaDB and local Ollama to ensure the project runs immediately on any machine without API keys.
-
-## Prerequisites
-
-- Python 3.10+
-- Node.js 18+
-- [Ollama](https://ollama.ai) installed and running
-
-Pull the required models before starting:
-
-```bash
-ollama pull llama3.2          # ~2GB
-ollama pull nomic-embed-text  # ~274MB
-```
-
-## Setup
-
-```bash
-# Backend
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-
-# Frontend (separate terminal)
-cd frontend
-npm install
-npm run dev
-```
-
-Open `http://localhost:5173` — paste two YouTube URLs and start chatting.
+- **Automated Comparison**: The app calculates engagement rates on the fly and highlights the "winner" so you get an immediate visual on which video performed better before you even start chatting.
+- **RAG Citations**: To keep the AI grounded, every response includes source chips. You can hover over them to see the exact transcript excerpt and the similarity score the vector DB returned.
+- **Performance Telemetry**: Since RAG can be slow on local hardware, I added real-time tracking for Time-to-First-Token (TTFT), DB latency, and tokens-per-second. It's tucked into a hover tooltip to keep the UI clean.
+- **Zero-Config Local Stack**: Everything runs on your machine using in-memory ChromaDB and Ollama. No API keys, no cloud bills, and no data leaves your device.
 
 
 ## How it works
